@@ -1,0 +1,78 @@
+---
+title: "Milestone 2 data cleaning"
+author: "Tsz Yau Iris Chow"
+date: "3/10/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rm(list = ls())
+library("dplyr")
+library("tidyr")
+```
+
+```{r}
+carbon <- read.csv("carbon-monitor-US.csv")
+```
+
+```{r echo=TRUE}
+
+#remove rows with NA
+carbon <- na.omit(carbon)
+
+#remove country column
+carbon$country...group.of.countries = NULL
+
+head(carbon)
+
+#modify dates
+carbon <- carbon %>%
+  mutate(date = as.Date(date, format = "%d/%m/%Y"))
+
+carbon_date <- carbon
+
+#remove sector column
+carbon_date$sector = NULL
+```
+
+```{r}
+#combine dates into one row per day
+carbon_date = aggregate(.~date, data = carbon_date, FUN = sum)
+head(carbon_date)
+```
+
+
+
+```{r}
+#Widen table by sector
+carbon_sector <- carbon %>%
+  pivot_wider(names_from = sector, values_from = MtCO2.per.day)
+head(carbon_sector)
+```
+
+### creating graphs
+
+```{r}
+library("ggplot2")
+library("dplyr")
+library("dslabs")
+library("readr")
+theme_set(theme_bw())
+```
+
+```{r}
+ggplot(carbon, aes(x = date, y = MtCO2.per.day, col = sector)) +
+  geom_line()+
+  ggtitle("Carbon Emissions in the US by Sector")+
+  labs(y = "Carbon Emissions (Mt)")+
+  geom_vline(xintercept =as.Date("19/01/2020","%d/%m/%Y"), color = "red", linetype = "solid")
+```
+
+
+
