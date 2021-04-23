@@ -2,7 +2,8 @@
 title: "Stat 479 Project"
 description: |
   Project Introduction
-site: distill::distill_website
+output:
+  html_document: default
 ---
 
 ### Introduction

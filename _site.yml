@@ -1,0 +1,10 @@
+name: "Stats 479 Project"
+output_dir: "html"
+navbar:
+    title: "479 Project"
+    left:
+        - text: "Home"
+          href: index.html
+output:
+    html_document:
+        theme: cosmo
