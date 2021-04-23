@@ -1,5 +1,5 @@
 ---
-title: "Milestone 2 data cleaning"
+title: "Carbon Emissions Graph"
 author: "Tsz Yau Iris Chow"
 date: "3/10/2021"
 output:
