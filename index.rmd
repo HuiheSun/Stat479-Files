@@ -6,16 +6,11 @@ output:
   html_document: default
 ---
 
-### Introduction
-Since the 2020, COVID-19 pandemic has had many unforeseen effects. While acknowledging the negative effects of the pandemic, we will illustrate benefits for the environment with two visualized graphs.
+### Final Reporting
+We did not alter our original questions. Instead, we took the suggestions from our last milestone and the peer reviews and implemented reasonable revisions into our visualizations. In regards to the carbon emissions visualization, we decided to facet the plot by sector and then added a line for the running average. The approach is clearer because it reduces noise and any overlapping lines. In addition, we included a label for the red line, which indicates the outbreak of the first COVID case in the United States. Previously, the line was described in the explanation but not in the plot. We also added another line indicating when the stay-at-home orders began in the United States. This adds to our general idea of comparing phases of the pandemic to the environment, rather than just looking at carbon emissions alone. Finally, we altered the month names to correspond more closely to the other visualization. 
+We decided to make these changes to make the first visualization easier to understand as well as to make the purpose of our project clearer. In regards to the COVID-19 visualization, we found out that dual axis could be misleading. Therefore, faceted the plots instead of using dual axis, and added a line representing the outbreak of the first coronavirus case in the United States. The faceting and lines of the visualizations allow readers to make clearer interpretations easily. The Carbon Emissions visualization now shows that the Ground Transport sector did not decline until after the first stay-at-home order. 
 
-### Data Sources and Curation
-Two datasets are used in this report, one dataset describing CO2 emissions by sector in the US from January 2019 to December 2020 from [Carbon Monitor (2021)](https://carbonmonitor.org/), and the other including COVID-19 cases and deaths by state for the United States by [the New York Times (2021)](https://www.nytimes.com/interactive/2021/us/covid-cases.html). Cleaning the dataset involved converting the cumulative values to a rate over time value, formatting date, pivoting the columns and removing unnecessary data.
 
-### Data visualization
-The report visualizes the change in carbon emission, and the positive cases over time in the United States. In the first graph where red vertical line indicates the cutoff time of the first COVID case, conclusions can be drawn that the carbon emissions from different sectors responded differently to the social economical changes brought by the covid pandemic. The second graph visualizes COVID mortalities and positive cases against time. The encodings used in this visualization include size and texture, in the form of area under the curve and the corresponding color respectively. The left axis shows values for mortality in black, while the right axis shows the number of positive cases in red. The marks used are two lines and areas underneath that show the infection and mortality rates of COVID-19. The cases spike from zero in March of 2020. There appears to be a peak around December, January, and February of 2021 for mortalities and positive cases, with mortalities slightly lagged.
-
-While our visualizations may connect an increase in positive cases to a decrease in carbon emissions, we would like to reiterate that the pandemic has negatively impacted much of the population. For potential improvements, data from other sources could be visualized.
 
 [Graph 1: Carbon Emission Over Time](https://github.com/HuiheSun/Stat479-Files/blob/main/Carbon-graph.pdf)
 [Graph 2: Covid Mortalities and Positive Cases Over Time](https://observablehq.com/@takingdrake/479-final)
