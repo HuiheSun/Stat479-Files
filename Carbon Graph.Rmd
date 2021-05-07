@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 rm(list = ls())
 library("dplyr")
 library("tidyr")
+library(tidyverse)
 ```
 
 ```{r}
@@ -33,45 +34,33 @@ head(carbon)
 
 #modify dates
 carbon <- carbon %>%
-  mutate(date = as.Date(date, format = "%d/%m/%Y"))
-
-carbon_date <- carbon
-
-#remove sector column
-carbon_date$sector = NULL
+  mutate(date = as.Date(date, format = "%d/%m/%Y")) 
 ```
 
-```{r}
-#combine dates into one row per day
-carbon_date = aggregate(.~date, data = carbon_date, FUN = sum)
-head(carbon_date)
-```
-
-
-
-```{r}
-#Widen table by sector
-carbon_sector <- carbon %>%
-  pivot_wider(names_from = sector, values_from = MtCO2.per.day)
-head(carbon_sector)
-```
-
-### creating graphs
+### Creating graphs
 
 ```{r}
 library("ggplot2")
 library("dplyr")
 library("dslabs")
 library("readr")
+library("zoo")
 theme_set(theme_bw())
 ```
 
-```{r}
-ggplot(carbon, aes(x = date, y = MtCO2.per.day, col = sector)) +
+```{r }
+carbon$roll7 = rollmean(carbon$MtCO2.per.day, 10, na.pad=TRUE)
+carbon <- carbon %>%
+  na.omit()
+plot <- ggplot(carbon, aes(x = date, y = MtCO2.per.day)) +
   geom_line()+
   ggtitle("Carbon Emissions in the US by Sector")+
-  labs(y = "Carbon Emissions (Mt)")+
-  geom_vline(xintercept =as.Date("19/01/2020","%d/%m/%Y"), color = "red", linetype = "solid")
+  labs(x = "Date",y = "Carbon Emissions (Mt)", caption = "Red line indicates date of first covid outbreak in the US (Janarary 19th, 2020) \n Blue line indicates date of first stay-at-home order goes into effect (March 19th, 2020)")+
+  geom_vline(xintercept =as.Date("19/01/2020","%d/%m/%Y"), color = "red", linetype = "solid")+
+  geom_vline(xintercept =as.Date("19/03/2020","%d/%m/%Y"), color = "blue", linetype = "solid")  +
+  facet_wrap(~sector)+
+  geom_line(aes(y=roll7), col = "green")+scale_x_date(date_labels = "%b-%y")
+plot
 ```
 
 
